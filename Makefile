@@ -1,4 +1,4 @@
-.PHONY: uv-clean uv-delete help
+.PHONY: uv-clean uv-init uv-destroy help
 
 # Some colour codes for formatting.
 COLOR_GREEN=\033[0;32m
@@ -14,6 +14,9 @@ help: ## Show help for each of the Makefile recipes.
 	@echo "Usage: make [target] ...\n"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(COLOR_CYAN)%-20s$(COLOR_RESET) %s\n", $$1, $$2}'
 	@echo "" # just a blank line for nice formatting
+
+uv-init: ## Initialize UV with specified python version. Example: `make uv-init v=3.12`
+	@uv init --python $(v)
 
 uv-clean: ## Remove UV environment and pycache
 	@echo "Cleaning environment..."
